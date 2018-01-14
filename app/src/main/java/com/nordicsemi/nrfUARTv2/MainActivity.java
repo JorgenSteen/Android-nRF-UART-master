@@ -160,7 +160,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
             @Override
             public void onClick(View v) {
 
-
+                SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
                 String endend = "1 \n";
                 byte[] end_this;
                 byte[] comma;
