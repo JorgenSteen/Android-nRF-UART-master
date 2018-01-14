@@ -160,7 +160,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
             @Override
             public void onClick(View v) {
 
-
+                SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
                 String endend = "1 \n";
                 byte[] end_this;
                 byte[] comma;
@@ -168,15 +168,21 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                     int message = seekBar.getProgress();
                     ByteBuffer buf = ByteBuffer.allocate(4);
                     buf.putInt(message);
-                   // buf.put()
                     mService.writeRXCharacteristic(buf.array());
+
                     //send data to service
+
+                    String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
+                    listAdapter.add("["+currentDateTimeString+"] TX: "+ message);
+                    messageListView.smoothScrollToPosition(listAdapter.getCount() - 1);
+                    edtMessage.setText("");
+
                     end_this = endend.getBytes("UTF-8");
                   //  comma = message.getBytes("UTF-8");
                     mService.writeRXCharacteristic(end_this);
                     //Update the log with time stamp
-                    String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
-                    listAdapter.add("["+currentDateTimeString+"] TX: "+ message);
+                    currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
+                    listAdapter.add("["+currentDateTimeString+"] TX: "+ endend);
                     messageListView.smoothScrollToPosition(listAdapter.getCount() - 1);
 
                 } catch (UnsupportedEncodingException e) {
