@@ -30,7 +30,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.text.DateFormat;
 import java.util.Date;
-
+import java.util.Arrays;
 
 import com.nordicsemi.nrfUARTv2.UartService;
 
@@ -111,6 +111,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
 
 
 
+
         listAdapter = new ArrayAdapter<String>(this, R.layout.message_detail);
         messageListView.setAdapter(listAdapter);
         messageListView.setDivider(null);
@@ -118,7 +119,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
         btnSend=(Button) findViewById(R.id.sendButton);
 
         edtMessage = (EditText) findViewById(R.id.sendText);
-        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
+        SeekBar seekBar_Red = (SeekBar) findViewById(R.id.seekBar_R);
 
 
         button1=(Button) findViewById(R.id.LayoutButton1);
@@ -160,35 +161,58 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
             @Override
             public void onClick(View v) {
 
-                SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
-                String endend = "1 \n";
+                SeekBar seekBar_Red = (SeekBar) findViewById(R.id.seekBar_R);
+                SeekBar seekBar_Green = (SeekBar) findViewById(R.id.seekBar_G);
+                SeekBar seekBar_Blue = (SeekBar) findViewById(R.id.seekBar_B);
+                //String endend = "1 \n ";
+                String endend = ",,1";
                 byte[] end_this;
-                byte[] comma;
-                try {
-                    int message = seekBar.getProgress();
+                int[] ValuesArray = new int[7];
+
+
+                    int Color_R = seekBar_Red.getProgress();
+                int Color_G = seekBar_Green.getProgress();
+                int Color_B = seekBar_Blue.getProgress();
+
                     ByteBuffer buf = ByteBuffer.allocate(4);
-                    buf.putInt(message);
-                   // buf.put()
-                    mService.writeRXCharacteristic(buf.array());
+                //    buf.putInt(message);
+                // mService.writeRXCharacteristic(buf.array());
+
+               // for (int i = 0; i < 5; i++) {
+              //      ValuesArray[i] = i;
+           //     }
+                ValuesArray[4] = (byte)Color_R;
+                ValuesArray[5] = (byte)Color_G;
+                ValuesArray[6] = (byte)Color_B;
+                String message2 = Arrays.toString(ValuesArray) + "\n";
+
+                byte[] value;
+                try {
                     //send data to service
-                    end_this = endend.getBytes("UTF-8");
-                  //  comma = message.getBytes("UTF-8");
-                    mService.writeRXCharacteristic(end_this);
+                    value = message2.getBytes("UTF-8");
+                    mService.writeRXCharacteristic(value);
                     //Update the log with time stamp
                     String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
-                    listAdapter.add("["+currentDateTimeString+"] TX: "+ message);
+                    listAdapter.add("["+currentDateTimeString+"] TX: "+ Color_R);
                     messageListView.smoothScrollToPosition(listAdapter.getCount() - 1);
-
+                    edtMessage.setText("");
                 } catch (UnsupportedEncodingException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
 
+                    //Update the log with time stamp
+                    String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
+                    listAdapter.add("["+currentDateTimeString+"] TX: "+ Color_R);
+                    messageListView.smoothScrollToPosition(listAdapter.getCount() - 1);
+
+
+
             }
         });
 
         //SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seekBar_Red.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -209,7 +233,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                 //send data to service
                 ByteBuffer buf = ByteBuffer.allocate(4);
                 buf.putInt(message);
-                mService.writeRXCharacteristic(buf.array());
+              //  mService.writeRXCharacteristic(buf.array());
                 //Update the log with time stamp
                 String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
                 listAdapter.add("["+currentDateTimeString+"] TX: "+ message);
