@@ -48,6 +48,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -185,6 +186,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
         Button_0_0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Led_Set(0,0);
             }
         });
@@ -337,6 +339,8 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
             @Override
             public void onClick(View v) {
 
+
+
                 SeekBar seekBar_Red = (SeekBar) findViewById(R.id.seekBar_R);
                 SeekBar seekBar_Green = (SeekBar) findViewById(R.id.seekBar_G);
                 SeekBar seekBar_Blue = (SeekBar) findViewById(R.id.seekBar_B);
@@ -472,7 +476,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
   
         }
     };
-
+    boolean Bluetooth_connected = false;
     private final BroadcastReceiver UARTStatusChangeReceiver = new BroadcastReceiver() {
 
         public void onReceive(Context context, Intent intent) {
@@ -488,6 +492,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                              btnConnectDisconnect.setText("Disconnect");
                              edtMessage.setEnabled(true);
                              btnSend.setEnabled(true);
+                             Bluetooth_connected = true;
                              button1.setEnabled(true);
                              ((TextView) findViewById(R.id.deviceName)).setText(mDevice.getName()+ " - ready");
                              listAdapter.add("["+currentDateTimeString+"] Connected to: "+ mDevice.getName());
@@ -506,6 +511,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                              btnConnectDisconnect.setText("Connect");
                              edtMessage.setEnabled(false);
                              btnSend.setEnabled(false);
+                             Bluetooth_connected = false;
                              ((TextView) findViewById(R.id.deviceName)).setText("Not Connected");
                              listAdapter.add("["+currentDateTimeString+"] Disconnected to: "+ mDevice.getName());
                              mState = UART_PROFILE_DISCONNECTED;
@@ -691,21 +697,21 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
             .show();
         }
     }
+    Color mColor = new Color();
 
     //This function takes in position and sends it to the bluetooth device
-    public void Led_Set(int X, int Y)
-    {
-        int LED_MATRIX_SIZE =  25;
-        int LED_MATRIX_SIZE_X =  5;
-        int LED_MATRIX_SIZE_Y =  5;
+    public void Led_Set(int X, int Y) {
+        int LED_MATRIX_SIZE = 25;
+        int LED_MATRIX_SIZE_X = 5;
+        int LED_MATRIX_SIZE_Y = 5;
 
         //LED_MATRIX = new int [LED_MATRIX_SIZE_X][LED_MATRIX_SIZE_Y];
-        int [ ] [ ] LED_MATRIX = {
-                {0,1,2,3,4},
-                {5,6,7,8,9},
-                {10,11,12,13,14},
-                {15,16,17,18,19},
-                {20,21,22,23,24}
+        int[][] LED_MATRIX = {
+                {0, 1, 2, 3, 4},
+                {5, 6, 7, 8, 9},
+                {10, 11, 12, 13, 14},
+                {15, 16, 17, 18, 19},
+                {20, 21, 22, 23, 24}
         };
         int Position = LED_MATRIX[X][Y];
 
@@ -719,36 +725,145 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
         int Color_G = seekBar_Green.getProgress();
         int Color_B = seekBar_Blue.getProgress();
 
-        float Color_R_RGB = (float)Color_R*2.5f;
-        float Color_G_RGB = (float)Color_G*2.5f;
-        float Color_B_RGB = (float)Color_B*2.5f;
+        float Color_R_RGB = (float) Color_R * 2.5f;
+        float Color_G_RGB = (float) Color_G * 2.5f;
+        float Color_B_RGB = (float) Color_B * 2.5f;
 
 
+
+        Color_buttons(Position,(int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB);
         ValuesArray[0] = 50;
         ValuesArray[1] = Position;
-        ValuesArray[2] = (byte)Color_R;
-        ValuesArray[3] = (byte)Color_G;
-        ValuesArray[4] = (byte)Color_B;
+        ValuesArray[2] = (byte) Color_R;
+        ValuesArray[3] = (byte) Color_G;
+        ValuesArray[4] = (byte) Color_B;
         String message2 = Arrays.toString(ValuesArray) + "\n";
 
-        byte[] value;
-        try {
-            //send data to service
-            value = message2.getBytes("UTF-8");
-            mService.writeRXCharacteristic(value);
+        if (Bluetooth_connected == true){
+                byte[] value;
+            try {
+                //send data to service
+                value = message2.getBytes("UTF-8");
+                mService.writeRXCharacteristic(value);
+                //Update the log with time stamp
+                String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
+                listAdapter.add("[" + currentDateTimeString + "] TX: " + Color_R);
+                messageListView.smoothScrollToPosition(listAdapter.getCount() - 1);
+                edtMessage.setText("");
+            } catch (UnsupportedEncodingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             //Update the log with time stamp
             String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
-            listAdapter.add("["+currentDateTimeString+"] TX: "+ Color_R);
+            listAdapter.add("[" + currentDateTimeString + "] TX: " + Color_R);
             messageListView.smoothScrollToPosition(listAdapter.getCount() - 1);
-            edtMessage.setText("");
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
+    }
+    public void Color_buttons(int button_nr,int Color_R_RGB, int Color_G_RGB, int Color_B_RGB) {
+        switch(button_nr) {
+            case 0:
+                Button_0_0.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
 
-        //Update the log with time stamp
-        String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
-        listAdapter.add("["+currentDateTimeString+"] TX: "+ Color_R);
-        messageListView.smoothScrollToPosition(listAdapter.getCount() - 1);
+            case 1:
+                Button_0_1.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 2:
+                Button_0_2.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 3:
+                Button_0_3.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 4:
+                Button_0_4.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 5:
+                Button_1_0.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 6:
+                Button_1_1.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 7:
+                Button_1_2.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 8:
+                Button_1_3.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 9:
+                Button_1_4.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 10:
+                Button_2_0.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 11:
+                Button_2_1.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 12:
+                Button_2_2.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 13:
+                Button_2_3.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 14:
+                Button_2_4.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 15:
+                Button_3_0.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 16:
+                Button_3_1.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 17:
+                Button_3_2.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 18:
+                Button_3_3.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 19:
+                Button_3_4.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 20:
+                Button_4_0.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 21:
+                Button_4_1.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 22:
+                Button_4_2.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 23:
+                Button_4_3.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+            case 24:
+                Button_4_4.setBackgroundColor(Color.rgb((int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB));
+                break;
+
+        }
     }
 }
+

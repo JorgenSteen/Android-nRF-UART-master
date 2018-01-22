@@ -35,19 +35,25 @@
             android:layout_width="match_parent"
             android:layout_height="15dp"
             android:layout_weight="4.11"
-            android:max="100" />
+            android:background="@android:color/holo_red_light"
+            android:max="100"
+            android:thumb="@android:drawable/edit_text" />
 
         <SeekBar
             android:id="@+id/seekBar_G"
             android:layout_width="match_parent"
             android:layout_height="13dp"
-            android:layout_weight="4.11" />
+            android:layout_weight="4.11"
+            android:background="@android:color/holo_green_light"
+            android:thumb="@android:drawable/edit_text" />
 
         <SeekBar
             android:id="@+id/seekBar_B"
             android:layout_width="match_parent"
             android:layout_height="14dp"
-            android:layout_weight="4.11" />
+            android:layout_weight="4.11"
+            android:background="@android:color/holo_blue_dark"
+            android:thumb="@android:drawable/edit_text" />
 
         <RelativeLayout
             android:id="@+id/RelativeLayout1"
@@ -60,7 +66,7 @@
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="15dp">
+                android:layout_marginLeft="3dp">
 
                 <TableRow
                     android:layout_width="match_parent"
