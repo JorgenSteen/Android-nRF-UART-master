@@ -87,6 +87,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     private ListView messageListView;
     private ArrayAdapter<String> listAdapter;
     private Button btnConnectDisconnect,btnSend, button1;
+    private Button Button_0_0,Button_0_1,Button_0_2,Button_0_3,Button_0_4,Button_1_0,Button_1_1,Button_1_2,Button_1_3,Button_1_4,Button_2_0,Button_2_1,Button_2_2,Button_2_3,Button_2_4,Button_3_0,Button_3_1,Button_3_2,Button_3_3,Button_3_4,Button_4_0,Button_4_1,Button_4_2,Button_4_3,Button_4_4;
     private EditText edtMessage;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -124,6 +125,31 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
 
         button1=(Button) findViewById(R.id.LayoutButton1);
 
+        Button_0_0 =(Button) findViewById(R.id.button1);
+        Button_0_1 =(Button) findViewById(R.id.button2);
+        Button_0_2 =(Button) findViewById(R.id.button3);
+        Button_0_3 =(Button) findViewById(R.id.button4);
+        Button_0_4 =(Button) findViewById(R.id.button5);
+        Button_1_0 =(Button) findViewById(R.id.button6);
+        Button_1_1 =(Button) findViewById(R.id.button7);
+        Button_1_2 =(Button) findViewById(R.id.button8);
+        Button_1_3 =(Button) findViewById(R.id.button9);
+        Button_1_4 =(Button) findViewById(R.id.button10);
+        Button_2_0 =(Button) findViewById(R.id.button11);
+        Button_2_1 =(Button) findViewById(R.id.button12);
+        Button_2_2 =(Button) findViewById(R.id.button13);
+        Button_2_3 =(Button) findViewById(R.id.button14);
+        Button_2_4 =(Button) findViewById(R.id.button15);
+        Button_3_0 =(Button) findViewById(R.id.button16);
+        Button_3_1 =(Button) findViewById(R.id.button17);
+        Button_3_2 =(Button) findViewById(R.id.button18);
+        Button_3_3 =(Button) findViewById(R.id.button19);
+        Button_3_4 =(Button) findViewById(R.id.button20);
+        Button_4_0 =(Button) findViewById(R.id.button21);
+        Button_4_1 =(Button) findViewById(R.id.button22);
+        Button_4_2 =(Button) findViewById(R.id.button23);
+        Button_4_3 =(Button) findViewById(R.id.button24);
+        Button_4_4 =(Button) findViewById(R.id.button25);
 
         service_init();
 
@@ -156,6 +182,156 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
             }
         });
 
+        Button_0_0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(0,0);
+            }
+        });
+        Button_0_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(0,1);
+            }
+        });
+        Button_0_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(0,2);
+            }
+        });
+        Button_0_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(0,3);
+            }
+        });
+        Button_0_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(0,4);
+            }
+        });
+        Button_1_0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(1,0);
+            }
+        });
+        Button_1_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(1,1);
+            }
+        });
+        Button_1_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(1,2);
+            }
+        });
+        Button_1_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(1,3);
+            }
+        });
+        Button_1_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(1,4);
+            }
+        });
+        Button_2_0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(2,0);
+            }
+        });
+        Button_2_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(2,1);
+            }
+        });
+        Button_2_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(2,2);
+            }
+        });
+        Button_2_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(2,3);
+            }
+        });
+        Button_2_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(2,4);
+            }
+        });
+        Button_3_0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(3,0);
+            }
+        });
+        Button_3_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(3,1);
+            }
+        });
+        Button_3_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(3,2);
+            }
+        });
+        Button_3_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(3,3);
+            }
+        });
+        Button_3_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(3,4);
+            }
+        });
+        Button_4_0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(4,0);
+            }
+        });
+        Button_4_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(4,1);
+            }
+        });
+        Button_4_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(4,2);
+            }
+        });
+        Button_4_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(4,3);
+            }
+        });
+        Button_4_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Led_Set(4,4);
+            }
+        });
         //button 1
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -514,5 +690,65 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
             .setNegativeButton(R.string.popup_no, null)
             .show();
         }
+    }
+
+    //This function takes in position and sends it to the bluetooth device
+    public void Led_Set(int X, int Y)
+    {
+        int LED_MATRIX_SIZE =  25;
+        int LED_MATRIX_SIZE_X =  5;
+        int LED_MATRIX_SIZE_Y =  5;
+
+        //LED_MATRIX = new int [LED_MATRIX_SIZE_X][LED_MATRIX_SIZE_Y];
+        int [ ] [ ] LED_MATRIX = {
+                {0,1,2,3,4},
+                {5,6,7,8,9},
+                {10,11,12,13,14},
+                {15,16,17,18,19},
+                {20,21,22,23,24}
+        };
+        int Position = LED_MATRIX[X][Y];
+
+        SeekBar seekBar_Red = (SeekBar) findViewById(R.id.seekBar_R);
+        SeekBar seekBar_Green = (SeekBar) findViewById(R.id.seekBar_G);
+        SeekBar seekBar_Blue = (SeekBar) findViewById(R.id.seekBar_B);
+        int[] ValuesArray = new int[5];
+
+
+        int Color_R = seekBar_Red.getProgress();
+        int Color_G = seekBar_Green.getProgress();
+        int Color_B = seekBar_Blue.getProgress();
+
+        float Color_R_RGB = (float)Color_R*2.5f;
+        float Color_G_RGB = (float)Color_G*2.5f;
+        float Color_B_RGB = (float)Color_B*2.5f;
+
+
+        ValuesArray[0] = 50;
+        ValuesArray[1] = Position;
+        ValuesArray[2] = (byte)Color_R;
+        ValuesArray[3] = (byte)Color_G;
+        ValuesArray[4] = (byte)Color_B;
+        String message2 = Arrays.toString(ValuesArray) + "\n";
+
+        byte[] value;
+        try {
+            //send data to service
+            value = message2.getBytes("UTF-8");
+            mService.writeRXCharacteristic(value);
+            //Update the log with time stamp
+            String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
+            listAdapter.add("["+currentDateTimeString+"] TX: "+ Color_R);
+            messageListView.smoothScrollToPosition(listAdapter.getCount() - 1);
+            edtMessage.setText("");
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        //Update the log with time stamp
+        String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
+        listAdapter.add("["+currentDateTimeString+"] TX: "+ Color_R);
+        messageListView.smoothScrollToPosition(listAdapter.getCount() - 1);
     }
 }
