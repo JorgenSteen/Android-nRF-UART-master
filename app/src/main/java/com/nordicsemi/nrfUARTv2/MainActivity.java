@@ -718,7 +718,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
         SeekBar seekBar_Red = (SeekBar) findViewById(R.id.seekBar_R);
         SeekBar seekBar_Green = (SeekBar) findViewById(R.id.seekBar_G);
         SeekBar seekBar_Blue = (SeekBar) findViewById(R.id.seekBar_B);
-        int[] ValuesArray = new int[5];
+        int[] ValuesArray = new int[8];
 
 
         int Color_R = seekBar_Red.getProgress();
@@ -732,11 +732,14 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
 
 
         Color_buttons(Position,(int)Color_R_RGB,(int)Color_G_RGB,(int)Color_B_RGB);
-        ValuesArray[0] = 50;
-        ValuesArray[1] = Position;
-        ValuesArray[2] = (byte) Color_R;
-        ValuesArray[3] = (byte) Color_G;
-        ValuesArray[4] = (byte) Color_B;
+        ValuesArray[0] = 5;
+        ValuesArray[1] = 'I';
+        ValuesArray[2] = 50;
+        ValuesArray[3] = 1;
+        ValuesArray[4] = Position;
+        ValuesArray[5] = (byte) Color_R;
+        ValuesArray[6] = (byte) Color_G;
+        ValuesArray[7] = (byte) Color_B;
         String message2 = Arrays.toString(ValuesArray) + "\n";
 
         if (Bluetooth_connected == true){
